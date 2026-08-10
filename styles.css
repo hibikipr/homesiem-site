@@ -1,0 +1,62 @@
+/* homeSIEM site — shared foundation.
+   Tokens, reset, base type, and focus live here; page-specific layout stays
+   in index.html's own <style> block. Palette matches siem-web's real
+   tokens.css so this site reads as a preview of the actual console. */
+
+:root {
+  --bg: #131523;
+  --surface: #232532;
+  --line: #292b31;
+
+  --text: #e9e9ed;
+  --muted: #9397ab;
+  --muted-dim: #75798c;
+
+  --accent: #968ae0;
+  --accent-light: #b5abfc;
+  --accent-lighter: #d2cefd;
+  --accent-deep: #423a6a;
+
+  --focus-ring: var(--accent);
+
+  --space-xs: .5rem; --space-sm: 1rem; --space-md: 1.5rem;
+  --space-lg: 2.5rem; --space-xl: 4rem; --space-2xl: 6rem;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { overflow-x: clip; }
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+h1, h2, h3 {
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+a { color: var(--accent-light); }
+a:hover { color: var(--accent-lighter); }
+
+code, pre {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
