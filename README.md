@@ -4,8 +4,9 @@ Marketing site for [homeSIEM](https://github.com/hibikipr/homeSIEM), a
 self-hosted syslog collector and security console for a homelab.
 
 - `index.html` — landing page
-- `assets/` — icon files, copied from the main repo's
-  `design_handoff_homesiem/icons/`
+- `assets/` — icon files (from the main repo's
+  `design_handoff_homesiem/icons/`) and real console screenshots (from
+  `design_handoff_homesiem/website pics/`)
 - No `CNAME` — `homesiem.townsville.cc` is already in use by the live
   siem-web console via reverse proxy, so this site doesn't claim it. It
   currently serves at whatever GitHub Pages URL this repo is given
@@ -19,11 +20,10 @@ Plain static HTML/CSS, no build step. Deploys automatically on push to
 
 Edit `index.html` directly and push to `main` — Pages rebuilds in under a
 minute. To refresh the icon, re-export it from the main repo's
-`design_handoff_homesiem/icons/` into `assets/` here.
-
-Product screenshots aren't included yet — see the design spec in
-`docs/superpowers/specs/` for why, and drop new ones into `assets/` plus
-wire them into the pillar cards / hero when they exist.
+`design_handoff_homesiem/icons/` into `assets/` here. To refresh a
+screenshot, re-export it from `design_handoff_homesiem/website pics/` into
+`assets/` (the hero uses `wall.jpg`; the pillar cards use `sources.jpg`,
+`insights.jpg`, and `search.jpg`).
 
 ## If the HTTPS certificate ever gets stuck
 
