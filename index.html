@@ -47,7 +47,7 @@
   .browser-frame .chrome span {
     width: 10px; height: 10px; border-radius: 50%; background: var(--line); display: inline-block;
   }
-  .browser-frame img { width: 100%; display: block; }
+  .browser-frame img { width: 100%; height: auto; display: block; }
   .btn-primary {
     display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px; border-radius: 10px;
     background: var(--accent); color: #131523; font-weight: 600; font-size: 15.5px; text-decoration: none;
@@ -66,25 +66,31 @@
   .section-head p { color: var(--muted); margin-top: 10px; font-size: 16px; }
 
   .pillar-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md);
+    display: flex; flex-direction: column; gap: var(--space-xl);
     margin-top: var(--space-xl);
   }
   .pillar {
+    display: grid; grid-template-columns: .85fr 1.15fr; gap: var(--space-lg); align-items: center;
     background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
-    padding: var(--space-md); min-width: 0;
+    padding: var(--space-lg); min-width: 0;
   }
+  .pillar:nth-child(even) { grid-template-columns: 1.15fr .85fr; }
+  .pillar:nth-child(even) .pillar-copy { order: 2; }
   .pillar .kicker {
     display: inline-flex; align-self: flex-start; padding: 5px 12px; border-radius: 999px;
     background: rgba(150, 138, 224, 0.12); color: var(--accent-light); font-weight: 600; font-size: 12.5px;
   }
-  .pillar h3 { font-size: 19px; font-weight: 600; margin-top: 14px; line-height: 1.2; }
-  .pillar p { color: var(--muted); font-size: 14.5px; line-height: 1.6; margin-top: 8px; }
+  .pillar h3 { font-size: 22px; font-weight: 600; margin-top: 14px; line-height: 1.2; }
+  .pillar p { color: var(--muted); font-size: 15px; line-height: 1.65; margin-top: 10px; max-width: 42ch; }
   .pillar .shot-frame {
-    margin-top: var(--space-md); border-radius: 10px; overflow: hidden;
+    border-radius: 10px; overflow: hidden; aspect-ratio: 954 / 641;
     border: 1px solid var(--line); box-shadow: 0 16px 40px rgba(0,0,0,.35);
   }
-  .pillar .shot-frame img { width: 100%; display: block; }
-  @media (max-width: 860px) { .pillar-grid { grid-template-columns: 1fr; } }
+  .pillar .shot-frame img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: top; }
+  @media (max-width: 760px) {
+    .pillar, .pillar:nth-child(even) { grid-template-columns: 1fr; }
+    .pillar:nth-child(even) .pillar-copy { order: 0; }
+  }
 
   /* ---- Architecture ---- */
   section.architecture { padding: var(--space-2xl) 0 0; }
@@ -153,25 +159,31 @@
     </div>
     <div class="pillar-grid">
       <div class="pillar">
-        <span class="kicker">Ingest &amp; enrich</span>
-        <h3>siem-ingest</h3>
-        <p>Vector, configured: syslog sources for UniFi and generic hosts, parsing, geo/threat-intel enrichment, a fast path to the API, and the full stream to Loki.</p>
+        <div class="pillar-copy">
+          <span class="kicker">Ingest &amp; enrich</span>
+          <h3>siem-ingest</h3>
+          <p>Vector, configured: syslog sources for UniFi and generic hosts, parsing, geo/threat-intel enrichment, a fast path to the API, and the full stream to Loki.</p>
+        </div>
         <div class="shot-frame">
           <img src="assets/sources.jpg" alt="The Sources screen: claimed sources with transport, parser, and health, a live parser preview, and ingest-health stats" width="954" height="641" loading="lazy" decoding="async">
         </div>
       </div>
       <div class="pillar">
-        <span class="kicker">Correlate &amp; alert</span>
-        <h3>siem-api</h3>
-        <p>Rule scheduler (threshold / first-seen / absence rule shapes), alert lifecycle, Loki client, OIDC verification + RBAC, and rich ntfy delivery.</p>
+        <div class="pillar-copy">
+          <span class="kicker">Correlate &amp; alert</span>
+          <h3>siem-api</h3>
+          <p>Rule scheduler (threshold / first-seen / absence rule shapes), alert lifecycle, Loki client, OIDC verification + RBAC, and rich ntfy delivery.</p>
+        </div>
         <div class="shot-frame">
           <img src="assets/insights.jpg" alt="The Insights screen: a list of correlation-driven suggestions like repeated authentication failures and severity misclassifications, each with a timestamp and dismiss action" width="954" height="641" loading="lazy" decoding="async">
         </div>
       </div>
       <div class="pillar">
-        <span class="kicker">Triage console</span>
-        <h3>siem-web</h3>
-        <p>Wall, Search, Live tail, Alerts, Sources, and Settings — a SvelteKit console with a thin BFF holding the session cookie.</p>
+        <div class="pillar-copy">
+          <span class="kicker">Triage console</span>
+          <h3>siem-web</h3>
+          <p>Wall, Search, Live tail, Alerts, Sources, and Settings — a SvelteKit console with a thin BFF holding the session cookie.</p>
+        </div>
         <div class="shot-frame">
           <img src="assets/search.jpg" alt="The Search screen: a query bar with source/host/program/severity filters, a time histogram, a facet rail, and a result table" width="954" height="641" loading="lazy" decoding="async">
         </div>
