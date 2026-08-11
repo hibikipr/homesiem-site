@@ -35,6 +35,19 @@
   .hero-copy p.sub { color: var(--muted); font-size: 16.5px; line-height: 1.65; margin-top: 16px; max-width: 560px; }
 
   .cta-row { margin-top: 30px; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+
+  .hero-shot { padding: var(--space-lg) 0 var(--space-xl); }
+  .browser-frame {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+    overflow: hidden; box-shadow: 0 30px 70px rgba(0,0,0,.45);
+  }
+  .browser-frame .chrome {
+    display: flex; align-items: center; gap: 6px; padding: 11px 14px; border-bottom: 1px solid var(--line);
+  }
+  .browser-frame .chrome span {
+    width: 10px; height: 10px; border-radius: 50%; background: var(--line); display: inline-block;
+  }
+  .browser-frame img { width: 100%; display: block; }
   .btn-primary {
     display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px; border-radius: 10px;
     background: var(--accent); color: #131523; font-weight: 600; font-size: 15.5px; text-decoration: none;
@@ -66,6 +79,11 @@
   }
   .pillar h3 { font-size: 19px; font-weight: 600; margin-top: 14px; line-height: 1.2; }
   .pillar p { color: var(--muted); font-size: 14.5px; line-height: 1.6; margin-top: 8px; }
+  .pillar .shot-frame {
+    margin-top: var(--space-md); border-radius: 10px; overflow: hidden;
+    border: 1px solid var(--line); box-shadow: 0 16px 40px rgba(0,0,0,.35);
+  }
+  .pillar .shot-frame img { width: 100%; display: block; }
   @media (max-width: 860px) { .pillar-grid { grid-template-columns: 1fr; } }
 
   /* ---- Architecture ---- */
@@ -120,6 +138,12 @@
         <a class="btn-secondary" href="#quickstart">Quickstart</a>
       </div>
     </div>
+    <div class="hero-shot">
+      <div class="browser-frame">
+        <div class="chrome"><span></span><span></span><span></span></div>
+        <img src="assets/wall.jpg" alt="The homeSIEM Wall screen: 24-hour event volume, a source-by-hour severity heat grid, live insights, and a ticker tailing all sources" width="954" height="689" fetchpriority="high">
+      </div>
+    </div>
   </div>
 
   <section class="pillars wrap" aria-labelledby="pillars-heading">
@@ -132,16 +156,25 @@
         <span class="kicker">Ingest &amp; enrich</span>
         <h3>siem-ingest</h3>
         <p>Vector, configured: syslog sources for UniFi and generic hosts, parsing, geo/threat-intel enrichment, a fast path to the API, and the full stream to Loki.</p>
+        <div class="shot-frame">
+          <img src="assets/sources.jpg" alt="The Sources screen: claimed sources with transport, parser, and health, a live parser preview, and ingest-health stats" width="954" height="641" loading="lazy" decoding="async">
+        </div>
       </div>
       <div class="pillar">
         <span class="kicker">Correlate &amp; alert</span>
         <h3>siem-api</h3>
         <p>Rule scheduler (threshold / first-seen / absence rule shapes), alert lifecycle, Loki client, OIDC verification + RBAC, and rich ntfy delivery.</p>
+        <div class="shot-frame">
+          <img src="assets/insights.jpg" alt="The Insights screen: a list of correlation-driven suggestions like repeated authentication failures and severity misclassifications, each with a timestamp and dismiss action" width="954" height="641" loading="lazy" decoding="async">
+        </div>
       </div>
       <div class="pillar">
         <span class="kicker">Triage console</span>
         <h3>siem-web</h3>
         <p>Wall, Search, Live tail, Alerts, Sources, and Settings — a SvelteKit console with a thin BFF holding the session cookie.</p>
+        <div class="shot-frame">
+          <img src="assets/search.jpg" alt="The Search screen: a query bar with source/host/program/severity filters, a time histogram, a facet rail, and a result table" width="954" height="641" loading="lazy" decoding="async">
+        </div>
       </div>
     </div>
   </section>
