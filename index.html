@@ -8,7 +8,9 @@
 <meta property="og:title" content="homeSIEM — Security triage for your homelab">
 <meta property="og:description" content="Self-hosted syslog collection, correlation rules, and an alert triage console. Not another metrics dashboard.">
 <meta property="og:image" content="assets/homesiem-512.png">
-<link rel="icon" type="image/svg+xml" href="assets/homesiem-icon-transparent.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/homesiem-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/homesiem-64.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/homesiem-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -23,10 +25,10 @@
   }
   .brand-row { display: flex; align-items: center; gap: 16px; }
   .brand-badge {
-    width: 64px; height: 64px; border-radius: 17px; background: var(--accent-deep);
-    box-shadow: inset 0 0 0 1.5px var(--accent), 0 8px 24px rgba(0,0,0,.35); display: grid; place-items: center; flex: none;
+    width: 64px; height: 64px; border-radius: 17px; overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,.35); flex: none;
   }
-  .brand-badge img { width: 38px; height: 38px; display: block; }
+  .brand-badge img { width: 100%; height: 100%; display: block; }
   .brand-row span { font-weight: 600; font-size: 28px; letter-spacing: -.01em; }
 
   .hero-copy { max-width: 680px; padding: var(--space-xl) 0 var(--space-lg); }
@@ -131,7 +133,7 @@
   <div class="hero-inner wrap">
     <div class="brand-row">
       <span class="brand-badge">
-        <img src="assets/homesiem-icon-transparent.svg" alt="" width="24" height="24">
+        <img src="assets/homesiem-180.png" alt="" width="64" height="64">
       </span>
       <span>homeSIEM</span>
     </div>
