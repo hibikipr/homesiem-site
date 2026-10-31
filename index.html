@@ -50,6 +50,120 @@
     width: 10px; height: 10px; border-radius: 50%; background: var(--line); display: inline-block;
   }
   .browser-frame img { width: 100%; height: auto; display: block; }
+
+  /* ---- Live incident demo ---- */
+  .demo { --crit: #ef6b73; --warn: #e8c25c; --ok: #6fcf97; position: relative; }
+  .demo .chrome { justify-content: space-between; }
+  .demo .chrome .dots { display: flex; gap: 6px; }
+  .demo-title { font-size: 12.5px; color: var(--muted); font-weight: 500; }
+  .demo-title b { color: var(--text); font-weight: 600; }
+  .live-dot {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--ok);
+    margin-right: 7px; vertical-align: 1px; animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 50% { opacity: .35; } }
+  .demo-body { display: grid; grid-template-columns: 1.35fr 1fr; min-height: 360px; }
+  .pane { padding: 14px 16px; min-width: 0; }
+  .pane + .pane { border-left: 1px solid var(--line); }
+  .pane-label {
+    font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--muted-dim); margin-bottom: 10px; display: flex; justify-content: space-between;
+  }
+  .tail { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12px; line-height: 1.85; }
+  .tail div {
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--muted);
+    animation: line-in .25s ease-out;
+  }
+  .tail .t { color: var(--muted-dim); }
+  .tail .h { color: var(--accent-light); }
+  .tail .bad { color: var(--crit); }
+  .tail .bad .h { color: var(--crit); }
+  @keyframes line-in { from { opacity: 0; transform: translateY(4px); } }
+
+  .rule {
+    border: 1px solid var(--line); border-radius: 10px; padding: 12px; font-size: 13px;
+    transition: border-color .3s, background .3s;
+  }
+  .rule.hot { border-color: var(--warn); }
+  .rule.fired { border-color: var(--crit); background: rgba(239, 107, 115, .07); }
+  .rule-name { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-weight: 600; color: var(--text); }
+  .rule-desc { color: var(--muted); margin-top: 4px; font-size: 12.5px; }
+  .meter { display: flex; gap: 4px; margin-top: 10px; }
+  .meter i { flex: 1; height: 6px; border-radius: 3px; background: var(--line); transition: background .2s; }
+  .meter i.on { background: var(--warn); }
+  .rule.fired .meter i.on { background: var(--crit); }
+
+  .alert-card {
+    margin-top: 12px; border-radius: 10px; padding: 12px; font-size: 13px;
+    background: var(--bg); border: 1px solid var(--line); border-left: 3px solid var(--crit);
+    animation: line-in .35s ease-out;
+  }
+  .alert-card[hidden] { display: none; }
+  .alert-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .sev {
+    font-size: 11px; font-weight: 700; letter-spacing: .06em; padding: 2px 8px; border-radius: 999px;
+    background: rgba(239, 107, 115, .15); color: var(--crit);
+  }
+  .alert-card.acked { border-left-color: var(--ok); }
+  .alert-card.acked .sev { background: rgba(111, 207, 151, .15); color: var(--ok); }
+  .alert-card h4 { font-size: 14px; margin-top: 8px; font-weight: 600; }
+  .alert-card dl { display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; margin-top: 8px; color: var(--muted); font-size: 12.5px; }
+  .alert-card dt { color: var(--muted-dim); }
+  .alert-card dd { color: var(--text); font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12px; overflow-wrap: anywhere; }
+  .alert-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .alert-actions button, .demo-replay {
+    font: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer; border-radius: 8px; padding: 7px 12px;
+    border: 1.5px solid var(--line); background: transparent; color: var(--text);
+  }
+  .alert-actions .ack { background: var(--accent); border-color: var(--accent); color: #131523; }
+  .alert-actions .ack:hover { background: var(--accent-light); }
+  .alert-actions button:disabled { opacity: .5; cursor: default; }
+  .demo-replay { color: var(--muted); padding: 4px 10px; }
+  .demo-replay:hover { color: var(--text); border-color: var(--accent-deep); }
+
+  .ntfy {
+    position: absolute; left: 16px; top: 52px; width: min(320px, calc(100% - 32px));
+    background: #2d2f3d; border: 1px solid #3a3d4c; border-radius: 14px; padding: 11px 13px;
+    box-shadow: 0 18px 40px rgba(0,0,0,.5); font-size: 12.5px; display: flex; gap: 10px;
+    transform: translateY(-16px); opacity: 0; pointer-events: none; transition: transform .35s, opacity .35s;
+  }
+  .ntfy.show { transform: none; opacity: 1; }
+  .ntfy img { width: 34px; height: 34px; border-radius: 8px; flex: none; }
+  .ntfy b { display: block; color: var(--text); font-weight: 600; }
+  .ntfy span { color: var(--muted); }
+
+  .demo-cta {
+    display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+    padding: 14px 16px; border-top: 1px solid var(--line); font-size: 14.5px; color: var(--muted);
+  }
+  .demo-cta strong { color: var(--text); }
+  .demo-cta .btn-primary { padding: 10px 18px; font-size: 14.5px; }
+  .demo-cta[hidden] { display: none; }
+  .demo-caption { margin-top: 12px; color: var(--muted-dim); font-size: 13px; text-align: center; }
+
+  @media (max-width: 760px) {
+    .demo-body { grid-template-columns: 1fr; }
+    .pane + .pane { border-left: 0; border-top: 1px solid var(--line); }
+    .tail { min-height: 200px; }
+    .demo .chrome .dots { display: none; }
+    .demo-title { white-space: nowrap; }
+    .ntfy { position: static; width: auto; margin: 0 16px 16px; display: none; }
+    .ntfy.show { display: flex; }
+  }
+
+  /* ---- Wall ---- */
+  section.wall { padding-top: var(--space-2xl); }
+  section.wall .browser-frame { margin-top: var(--space-lg); }
+
+  /* ---- Copy button ---- */
+  .code-wrap { position: relative; margin-top: var(--space-lg); }
+  .code-wrap pre.code-block { margin-top: 0; }
+  .copy-btn {
+    position: absolute; top: 12px; right: 12px; font: inherit; font-size: 13px; font-weight: 600;
+    padding: 6px 12px; border-radius: 8px; cursor: pointer;
+    background: var(--accent-deep); color: var(--accent-lighter); border: 0;
+  }
+  .copy-btn:hover { background: var(--accent); color: #131523; }
   .btn-primary {
     display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px; border-radius: 10px;
     background: var(--accent); color: #131523; font-weight: 600; font-size: 15.5px; text-decoration: none;
@@ -62,7 +176,7 @@
   .btn-secondary:hover { color: var(--text); border-color: var(--accent-deep); }
 
   /* ---- Pillars ---- */
-  section.pillars { padding: var(--space-2xl) 0 0; }
+  section.pillars { padding-top: var(--space-2xl); }
   .section-head { max-width: 640px; }
   .section-head h2 { font-size: clamp(24px, 3.4vw, 32px); font-weight: 700; }
   .section-head p { color: var(--muted); margin-top: 10px; font-size: 16px; }
@@ -95,7 +209,7 @@
   }
 
   /* ---- Architecture ---- */
-  section.architecture { padding: var(--space-2xl) 0 0; }
+  section.architecture { padding-top: var(--space-2xl); }
   .arch-frame {
     margin-top: var(--space-lg); background: var(--surface); border: 1px solid var(--line);
     border-radius: 16px; padding: var(--space-lg) var(--space-md); overflow-x: auto;
@@ -103,7 +217,7 @@
   .arch-frame svg { display: block; margin: 0 auto; min-width: 640px; max-width: 100%; height: auto; }
 
   /* ---- Quickstart ---- */
-  section.quickstart { padding: var(--space-2xl) 0 0; }
+  section.quickstart { padding-top: var(--space-2xl); }
   pre.code-block {
     margin-top: var(--space-lg); background: var(--surface); border: 1px solid var(--line);
     border-radius: 14px; padding: var(--space-md); overflow-x: auto;
@@ -147,12 +261,62 @@
       </div>
     </div>
     <div class="hero-shot">
-      <div class="browser-frame">
-        <div class="chrome"><span></span><span></span><span></span></div>
-        <img src="assets/wall.jpg" alt="The homeSIEM Wall screen: 24-hour event volume, a source-by-hour severity heat grid, live insights, and a ticker tailing all sources" width="954" height="689" fetchpriority="high">
+      <div class="browser-frame demo" id="demo" aria-label="Simulated demo: an SSH brute force detected by homeSIEM">
+        <div class="chrome">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <div class="demo-title"><span class="live-dot"></span><b>Live tail</b> · simulated homelab</div>
+          <button class="demo-replay" type="button" id="demo-replay">↻ Replay</button>
+        </div>
+        <div class="demo-body">
+          <div class="pane">
+            <div class="pane-label"><span>All sources</span><span id="demo-rate">— ev/s</span></div>
+            <div class="tail" id="demo-tail" aria-hidden="true"></div>
+          </div>
+          <div class="pane" aria-live="polite">
+            <div class="pane-label"><span>Rules</span><span>Alerts</span></div>
+            <div class="rule" id="demo-rule">
+              <div class="rule-name">ssh-bruteforce</div>
+              <div class="rule-desc">threshold · ≥ 5 failed SSH logins from one IP in 60s</div>
+              <div class="meter" id="demo-meter"><i></i><i></i><i></i><i></i><i></i></div>
+            </div>
+            <div class="alert-card" id="demo-alert" hidden>
+              <div class="alert-top"><span class="sev" id="demo-sev">CRITICAL · OPEN</span><span class="t" id="demo-alert-time" style="color: var(--muted-dim); font-size: 12px;"></span></div>
+              <h4>SSH brute force against raspberrypi</h4>
+              <dl>
+                <dt>Source IP</dt><dd>203.0.113.47</dd>
+                <dt>Enriched</dt><dd>NL · AS64511 · threat-intel: listed</dd>
+                <dt>Attempts</dt><dd id="demo-count">5 in 2.1s</dd>
+              </dl>
+              <div class="alert-actions">
+                <button class="ack" type="button" id="demo-ack">Acknowledge</button>
+                <button type="button" id="demo-search">Search this IP</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ntfy" id="demo-ntfy" aria-hidden="true">
+          <img src="assets/homesiem-64.png" alt="">
+          <div><b>ntfy · homeSIEM</b><span>CRITICAL: SSH brute force against raspberrypi from 203.0.113.47</span></div>
+        </div>
+        <div class="demo-cta" id="demo-cta" hidden>
+          <span><strong>Detected, enriched, and on your phone in seconds.</strong> Run it on your own network.</span>
+          <a class="btn-primary" href="#quickstart">Get it running →</a>
+        </div>
       </div>
+      <p class="demo-caption">Simulated demo of a real rule shape. Your syslog, your rules, your hardware.</p>
     </div>
   </div>
+
+  <section class="wall wrap" aria-labelledby="wall-heading">
+    <div class="section-head">
+      <h2 id="wall-heading">The Wall: your whole network at a glance</h2>
+      <p>Event volume, a source-by-hour severity grid, live insights, and a ticker tailing every source.</p>
+    </div>
+    <div class="browser-frame">
+      <div class="chrome"><span></span><span></span><span></span></div>
+      <img src="assets/wall.jpg" alt="The homeSIEM Wall screen: 24-hour event volume, a source-by-hour severity heat grid, live insights, and a ticker tailing all sources" width="954" height="689" loading="lazy" decoding="async">
+    </div>
+  </section>
 
   <section class="pillars wrap" aria-labelledby="pillars-heading">
     <div class="section-head">
@@ -251,13 +415,16 @@
       <h2 id="quickstart-heading">Quickstart</h2>
       <p>The root <code>docker-compose.yml</code> bundles Loki and ntfy too, so this gives you a working stack with no pre-existing homelab infrastructure required.</p>
     </div>
-    <pre class="code-block"><code><span class="comment"># clone and configure</span>
+    <div class="code-wrap">
+    <pre class="code-block"><code id="qs-code"><span class="comment"># clone and configure</span>
 git clone https://github.com/hibikipr/homeSIEM.git
 cd homeSIEM
 cp .env.example .env
 
 <span class="comment"># bring up Loki, ntfy, siem-api, siem-web</span>
 docker compose up -d --build</code></pre>
+    <button class="copy-btn" type="button" id="qs-copy">Copy</button>
+    </div>
     <p class="quickstart-note">You'll still need to register an OIDC client and seed an initial admin role mapping before your first login — see the <a href="https://github.com/hibikipr/homeSIEM#readme">full README</a> for the walkthrough, and turning on live ingest is a separate opt-in step.</p>
   </section>
 
@@ -267,5 +434,108 @@ docker compose up -d --build</code></pre>
   <p><strong style="color: var(--text);">homeSIEM</strong> — self-hosted, open source.</p>
   <p><a href="https://github.com/hibikipr/homeSIEM">GitHub repository</a></p>
 </footer>
+<script>
+/* Hero demo: ambient syslog, then a scripted SSH brute force that trips the
+   ssh-bruteforce rule, raises an alert and an ntfy push. Purely simulated. */
+(() => {
+  const $ = id => document.getElementById(id);
+  const tail = $('demo-tail'), meter = $('demo-meter').children, rule = $('demo-rule');
+  const alertCard = $('demo-alert'), ntfy = $('demo-ntfy'), cta = $('demo-cta');
+  const ack = $('demo-ack'), sev = $('demo-sev'), rate = $('demo-rate');
+  const MAX_LINES = 13, ATTACKER = '203.0.113.47';
+  const ambient = [
+    ['unifi-udm', 'kernel', () => `[WAN_LOCAL-default-D] IN=eth8 SRC=198.51.100.${rnd(2, 250)} DPT=${pick([23, 445, 3389, 8080])} PROTO=TCP`],
+    ['tower', 'dockerd', () => `container ${pick(['loki', 'grafana', 'ntfy', 'vector'])} health_status: healthy`],
+    ['raspberrypi', 'sshd', () => `Accepted publickey for pi from 192.168.1.${rnd(20, 40)} port ${rnd(40000, 60000)} ssh2`],
+    ['nas', 'smbd', () => `share 'media' opened by 192.168.1.${rnd(20, 60)}`],
+    ['unifi-udm', 'dnsmasq', () => `query[A] ${pick(['github.com', 'api.ntfy.sh', 'time.cloudflare.com', 'registry-1.docker.io'])} from 192.168.1.${rnd(2, 90)}`],
+    ['tower', 'CRON', () => '(root) CMD (/usr/local/bin/backup.sh)'],
+  ];
+  let timers = [], ambientTimer = null, started = false, hits = 0, firstHit = 0;
+
+  function rnd(a, b) { return a + Math.floor(Math.random() * (b - a)); }
+  function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+  function stamp() { return new Date().toISOString().slice(11, 23); }
+  function esc(s) { return s.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])); }
+  function line(host, prog, msg, bad) {
+    const d = document.createElement('div');
+    if (bad) d.className = 'bad';
+    d.innerHTML = `<span class="t">${stamp()}</span> <span class="h">${host}</span> ${prog}: ${esc(msg)}`;
+    tail.appendChild(d);
+    while (tail.children.length > MAX_LINES) tail.firstChild.remove();
+  }
+  function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function tickAmbient() {
+    const [h, p, m] = pick(ambient);
+    line(h, p, m());
+    rate.textContent = `${rnd(38, 61)} ev/s`;
+    ambientTimer = setTimeout(tickAmbient, rnd(450, 1100));
+  }
+
+  function attackHit() {
+    if (!hits) firstHit = performance.now();
+    hits++;
+    line('raspberrypi', 'sshd', `Failed password for ${pick(['root', 'admin', 'pi', 'ubuntu'])} from ${ATTACKER} port ${rnd(40000, 60000)} ssh2`, true);
+    for (let i = 0; i < meter.length; i++) meter[i].classList.toggle('on', i < hits);
+    rule.classList.add('hot');
+    $('demo-count').textContent = `${hits} in ${((performance.now() - firstHit) / 1000).toFixed(1)}s`;
+    if (hits === 5) fire();
+  }
+  function fire() {
+    rule.classList.add('fired');
+    $('demo-alert-time').textContent = stamp().slice(0, 8);
+    alertCard.hidden = false;
+    later(() => ntfy.classList.add('show'), 600);
+    later(() => ntfy.classList.remove('show'), 5600);
+    later(() => { cta.hidden = false; }, 1400);
+  }
+  function runAttack() {
+    for (let i = 0; i < 8; i++) later(attackHit, i * 420);
+  }
+
+  function reset() {
+    timers.forEach(clearTimeout); timers = [];
+    hits = 0;
+    for (const m of meter) m.classList.remove('on');
+    rule.classList.remove('hot', 'fired');
+    alertCard.hidden = true; alertCard.classList.remove('acked');
+    sev.textContent = 'CRITICAL · OPEN'; ack.disabled = false; ack.textContent = 'Acknowledge';
+    ntfy.classList.remove('show');
+  }
+  function start() {
+    if (started) return;
+    started = true;
+    for (let i = 0; i < 7; i++) { const [h, p, m] = pick(ambient); line(h, p, m()); }
+    tickAmbient();
+    later(runAttack, 2600);
+  }
+
+  ack.addEventListener('click', () => {
+    alertCard.classList.add('acked');
+    sev.textContent = 'CRITICAL · ACKNOWLEDGED';
+    ack.disabled = true; ack.textContent = 'Acknowledged';
+    cta.hidden = false;
+  });
+  $('demo-search').addEventListener('click', () => {
+    line('siem-web', 'search', `{source=~".+"} |= "${ATTACKER}" → ${hits} matches, 1 host, all sshd`);
+  });
+  $('demo-replay').addEventListener('click', () => { reset(); if (!started) start(); else later(runAttack, 900); });
+
+  // Only animate while the demo is on screen.
+  new IntersectionObserver(entries => {
+    const visible = entries[0].isIntersecting;
+    if (visible) { start(); if (!ambientTimer) tickAmbient(); }
+    else { clearTimeout(ambientTimer); ambientTimer = null; }
+  }, { threshold: 0.25 }).observe($('demo'));
+
+  $('qs-copy').addEventListener('click', async e => {
+    try {
+      await navigator.clipboard.writeText($('qs-code').innerText.split('\n').filter(l => l && !l.startsWith('#')).join('\n'));
+      e.target.textContent = 'Copied ✓';
+    } catch { e.target.textContent = 'Select & copy'; }
+    setTimeout(() => { e.target.textContent = 'Copy'; }, 2000);
+  });
+})();
+</script>
 </body>
 </html>

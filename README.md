@@ -20,9 +20,10 @@ Plain static HTML/CSS, no build step. Deploys automatically on push to
 
 Edit `index.html` directly and push to `main` — Pages rebuilds in under a
 minute. To refresh the icon, re-export it from the main repo's
-`design_handoff_homesiem/icons/` into `assets/` here. To refresh a
+`design_handoff_homesiem/icons/` into `assets/` here. The hero is a live, simulated incident demo (inline
+script at the bottom of `index.html`). To refresh a
 screenshot, re-export it from `design_handoff_homesiem/website pics/` into
-`assets/` (the hero uses `wall.jpg`; the pillar cards use `sources.jpg`,
+`assets/` (the Wall section uses `wall.jpg`; the pillar cards use `sources.jpg`,
 `insights.jpg`, and `search.jpg`).
 
 ## If the HTTPS certificate ever gets stuck
