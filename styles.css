@@ -1,23 +1,55 @@
-/* homeSIEM site — shared foundation.
-   Tokens, reset, base type, and focus live here; page-specific layout stays
-   in index.html's own <style> block. Palette matches siem-web's real
-   tokens.css so this site reads as a preview of the actual console. */
+/* homeSIEM site — shared foundation, Townsville.cc theme.
+   Tokens, reset, base type, background and focus live here; page-specific
+   layout stays in index.html's own <style> block. Colours follow the
+   Townsville.cc design system (the site layer, not the self-hosted app layer),
+   and the hero demo mirrors the console's ui- surfaces from siem-web's
+   tokens.css. homeSIEM's identity is the red saber triplet below. */
 
 :root {
-  --bg: #131523;
-  --surface: #232532;
-  --line: #292b31;
+  --bg: #070a18;
+  --card: rgba(14, 20, 44, .72);
+  --line: rgba(255, 255, 255, .08);
 
-  --text: #e9e9ed;
-  --muted: #9397ab;
-  --muted-dim: #75798c;
+  --ink: #e6e9f5;
+  --lead: #c3c9dd;
+  --body: #aab2cc;
+  --muted: #8189a3;
 
-  --accent: #968ae0;
-  --accent-light: #b5abfc;
-  --accent-lighter: #d2cefd;
-  --accent-deep: #423a6a;
+  --gold: #e8c36a;
+  --gold-light: #fbe7a8;
+  --gold-dark: #a9802f;
 
-  --focus-ring: var(--accent);
+  --link: #7fd6ff;
+  --link-hover: #e8c36a;
+
+  --saber-blue: #4cc9ff;
+  --saber-green: #5cff7a;
+  --saber-red: #ff4d5e;
+
+  --on-saber: #06101f;
+  --btn-primary-hover: #8fdcff;
+  --glow-primary: 0 0 24px rgba(76, 201, 255, .45);
+  --focus-ring: var(--saber-blue);
+
+  /* Console surfaces (hero demo), same ladder as siem-web's tokens.css */
+  --ui-sunken: #0b1024;
+  --ui-surface: #0e1430;
+  --ui-subtle: #121a3c;
+  --ui-border: #1d2754;
+  --ui-input-border: #2a3772;
+  --status-success-bg: rgba(92, 255, 122, .12);
+  --status-success-text: #8dffa6;
+  --status-danger-soft: rgba(255, 77, 94, .13);
+  --status-warn-bg: rgba(232, 195, 106, .14);
+
+  /* homeSIEM identity: red saber */
+  --saber: var(--saber-red);
+  --tint: #ffd4d8;
+  --label: #ff8f99;
+
+  --display: "Michroma", system-ui, sans-serif;
+  --text: "Chakra Petch", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --space-xs: .5rem; --space-sm: 1rem; --space-md: 1.5rem;
   --space-lg: 2.5rem; --space-xl: 4rem; --space-2xl: 6rem;
@@ -25,25 +57,35 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { overflow-x: clip; }
+html { scroll-behavior: smooth; }
 
 body {
-  font-family: "Inter", system-ui, sans-serif;
-  color: var(--text);
+  font-family: var(--text);
+  color: var(--ink);
   background: var(--bg);
+  background-image:
+    radial-gradient(1200px 700px at 85% -10%, rgba(76,201,255,.14), transparent 60%),
+    radial-gradient(900px 600px at -10% 40%, rgba(255,77,94,.08), transparent 60%),
+    radial-gradient(900px 700px at 50% 110%, rgba(92,255,122,.07), transparent 60%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  line-height: 1.5;
 }
 
 h1, h2, h3 {
-  font-family: "Inter", system-ui, sans-serif;
-  font-weight: 600;
+  font-family: var(--display);
+  font-weight: 400;
   overflow-wrap: anywhere;
   text-wrap: balance;
 }
 
-a { color: var(--accent-light); }
-a:hover { color: var(--accent-lighter); }
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); }
+
+img { max-width: 100%; }
 
 code, pre {
-  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-family: var(--mono);
 }
 
 :focus-visible {
@@ -53,6 +95,7 @@ code, pre {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
